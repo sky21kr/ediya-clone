@@ -31,8 +31,6 @@ export default function NewsMediaPage() {
     },
   );
 
-  console.log('data', data);
-
   const handleSearch = (
     keyword: string,
     keywordType: NewsRequest['keywordType'],
@@ -60,8 +58,8 @@ export default function NewsMediaPage() {
           currentPage={currentPage}
           setPage={setCurrentPage}
           handleChange={handleChangePage}
-          lastPage={data?.paging.lastPage || 1}
-          blockSize={data?.paging.blockSize || 10}
+          lastPage={data?.paging.lastPage}
+          blockSize={data?.paging.blockSize}
         />
       </div>
 

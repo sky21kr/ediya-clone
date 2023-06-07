@@ -1,21 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import CheeseChoco from '@/assets/images/cheese-choco.png';
-import ChocoRice from '@/assets/images/choco-rice.png';
-import { useMemo } from 'react';
-import { fetchIntro } from '@/apis/news';
-import { useQuery } from '@tanstack/react-query';
 import News from '@/components/Home/News';
 import Notice from '@/components/Home/Notice';
 import theme from '@/assets/styles/theme';
+import HomeVideo from '@/components/Home/Video';
 
 export default function HomePage() {
-  const { data: introAddress } = useQuery(['intro'], fetchIntro);
-
-  const introId = useMemo(() => {
-    return introAddress?.split('/').pop();
-  }, [introAddress]);
-
   return (
     <div className="home">
       <main>
@@ -51,7 +41,7 @@ export default function HomePage() {
           <Image
             width={306}
             height={401}
-            src={CheeseChoco}
+            src={'/images/cheese-choco.png'}
             alt={'치즈가 쿠키했대 쉐이크 이미지'}
           />
         </Link>
@@ -59,17 +49,14 @@ export default function HomePage() {
           <Image
             width={457}
             height={300}
-            src={ChocoRice}
+            src={'/images/choco-rice.png'}
             alt={'초코 묻고 더블, 밥대신 라이스 이미지'}
           />
         </Link>
       </div>
       <div className="section-background">
         <section>
-          <iframe
-            src={`https://www.youtube.com/embed/${introId}`}
-            style={{ height: '205px', width: '365px', border: 'none' }}
-          />
+          <HomeVideo />
           <div>
             <Notice />
             <News />
@@ -127,7 +114,7 @@ export default function HomePage() {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: ${theme.color.greyscaleWhite};
+            background: ${theme.color.greyscaleSnow};
             height: 330px;
 
             > section {
