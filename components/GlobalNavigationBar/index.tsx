@@ -15,10 +15,10 @@ const MENUS = [
 export default function GlobalNavigationBar() {
   const router = useRouter();
 
-  const isSelected = (menu: { path: string; active?: string[] }) => {
+  const isSelected = (menu: { path: string; activePath?: string[] }) => {
     return (
       router.pathname === menu.path ||
-      menu.active?.find((act) => router.pathname.includes(act))
+      menu.activePath?.find((act) => router.pathname.includes(act))
     );
   };
 

@@ -13,19 +13,20 @@ export type NewsRequest = {
 };
 
 export type NewsResponse = {
-  articles: {
-    sn: number; // 순서
-    imgSrc: string;
-    title: string;
-    content: string;
-    registrationDate: string;
-  }[];
-
+  articles: Article[];
   paging: {
     currentPage: number;
     lastPage: number;
     blockSize: number; // 하단 페이지 목록에 표시되는 페이지 수
   };
+};
+
+export type Article = {
+  sn: number; // 순서
+  imgSrc: string;
+  title: string;
+  content: string;
+  registrationDate: string;
 };
 
 export const fetchNews = async (params?: NewsRequest) => {

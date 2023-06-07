@@ -9,23 +9,41 @@ import { fetchNews, NewsRequest } from '@/apis/news';
 import { useState } from 'react';
 
 export default function NewsMediaPage() {
-  const [searchParams, setSearchParams] = useState<NewsRequest>({
-    keyword: '',
-    currentPage: 1,
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [keyword, setKeyword] = useState('');
+  const [keywordType, setKeywordType] = useState<
+    'title' | 'content' | undefined
+  >('title');
 
-  const {} = useQuery(['articles', searchParams], () =>
-    fetchNews(searchParams),
+  const { data } = useQuery(
+    ['articles', keyword, keywordType, currentPage],
+    async () => {
+      const nextSearchParams = {
+        keyword,
+        keywordType,
+        currentPage,
+      };
+
+      return await fetchNews(nextSearchParams);
+    },
+    {
+      keepPreviousData: true,
+    },
   );
+
+  console.log('data', data);
+
   const handleSearch = (
     keyword: string,
     keywordType: NewsRequest['keywordType'],
   ) => {
-    setSearchParams({
-      ...searchParams,
-      keyword,
-      keywordType,
-    });
+    setCurrentPage(1);
+    setKeyword(keyword);
+    setKeywordType(keywordType);
+  };
+
+  const handleChangePage = (nextPage: number) => {
+    setCurrentPage(nextPage);
   };
 
   return (
@@ -37,8 +55,14 @@ export default function NewsMediaPage() {
           description="이디야의 소식을 전해드립니다."
         />
         <NewsSearch handleSearch={handleSearch} />
-        <NewsList />
-        <Pagination />
+        <NewsList items={data?.articles || []} />
+        <Pagination
+          currentPage={currentPage}
+          setPage={setCurrentPage}
+          handleChange={handleChangePage}
+          lastPage={data?.paging.lastPage || 1}
+          blockSize={data?.paging.blockSize || 10}
+        />
       </div>
 
       <style jsx>
@@ -46,6 +70,7 @@ export default function NewsMediaPage() {
           .news-media {
             display: flex;
             flex-direction: column;
+            margin-bottom: 67px;
           }
         `}
       </style>
