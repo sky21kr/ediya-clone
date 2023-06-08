@@ -2,8 +2,7 @@ import theme from '@/assets/styles/theme';
 import usePagination from '@/components/common/Pagination/usePagination';
 
 export type PaginationProps = {
-  currentPage: number;
-  setPage: (page: number) => void;
+  currentPage?: number;
   lastPage?: number;
   blockSize?: number;
   handleChange?: (page: number) => void;

@@ -1,34 +1,40 @@
 import { PaginationProps } from '@/components/common/Pagination/index';
 import PaginationLeftSvg from '@/assets/svgs/pagination-left.svg';
 import PaginationRightSvg from '@/assets/svgs/pagination-right.svg';
+import { useEffect, useState } from 'react';
 
 const usePagination = ({
-  setPage,
   handleChange,
-  currentPage,
+  currentPage = 1,
   lastPage = 1,
   blockSize = 10,
 }: PaginationProps) => {
-  const currentBlock = Math.floor((currentPage - 1) / blockSize);
+  const [page, setPage] = useState(currentPage);
+
+  const currentBlock = Math.floor((page - 1) / blockSize);
   const lastBlock = Math.floor((lastPage - 1) / blockSize);
 
   const isFirstBlock = currentBlock === 0;
   const isLastBlock = currentBlock === lastBlock;
 
-  const _handleChange = (page: number) => {
-    if (handleChange) handleChange(page);
-    else setPage(page);
+  const _handleChange = (nextPage: number) => {
+    if (handleChange) handleChange(nextPage);
+    setPage(nextPage);
   };
+
+  useEffect(() => {
+    _handleChange(currentPage);
+  }, [currentPage]);
 
   const handleClickArrow = (type: 'prev' | 'next') => {
     switch (type) {
       case 'prev':
         if (isFirstBlock) return;
-        setPage(currentBlock * blockSize);
+        _handleChange(currentBlock * blockSize);
         break;
       case 'next':
         if (isLastBlock) return;
-        setPage((currentBlock + 1) * blockSize + 1);
+        _handleChange((currentBlock + 1) * blockSize + 1);
         break;
     }
   };
@@ -49,9 +55,11 @@ const usePagination = ({
           {Array.from({ length: currentBlockSize }, (_, index) => {
             const targetPage = 1 + index + blockSize * currentBlock;
 
+            console.log('targetPage', page);
+
             return (
               <li
-                className={targetPage === currentPage ? 'selected' : ''}
+                className={targetPage === page ? 'selected' : ''}
                 key={index}
                 onClick={() => _handleChange(targetPage)}
               >

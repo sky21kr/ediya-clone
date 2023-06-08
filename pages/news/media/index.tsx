@@ -1,65 +1,25 @@
-import NewsHeader from '@/components/News/Header';
-import NewsTabs from '@/components/News/Tabs';
 import Pagination from '@/components/common/Pagination';
 import NewsList from '@/components/News/List';
 import NewsLayout from '@/pages/news/layout';
 import NewsSearch from '@/components/News/Search';
-import { useQuery } from '@tanstack/react-query';
-import { fetchNews, NewsRequest } from '@/apis/news';
-import { useState } from 'react';
+import useNewsMedia from '@/pages/news/media/useNewsMedia';
 
 export default function NewsMediaPage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [keyword, setKeyword] = useState('');
-  const [keywordType, setKeywordType] = useState<
-    'title' | 'content' | undefined
-  >('title');
-
-  const { data } = useQuery(
-    ['articles', keyword, keywordType, currentPage],
-    async () => {
-      const nextSearchParams = {
-        keyword,
-        keywordType,
-        currentPage,
-      };
-
-      return await fetchNews(nextSearchParams);
-    },
-    {
-      keepPreviousData: true,
-    },
-  );
-
-  const handleSearch = (
-    keyword: string,
-    keywordType: NewsRequest['keywordType'],
-  ) => {
-    setCurrentPage(1);
-    setKeyword(keyword);
-    setKeywordType(keywordType);
-  };
-
-  const handleChangePage = (nextPage: number) => {
-    setCurrentPage(nextPage);
-  };
+  const { articleData, handleSearch, handleChangePage } = useNewsMedia();
 
   return (
-    <NewsLayout>
+    <NewsLayout
+      title="언론 속 이디야"
+      description="이디야의 소식을 전해드립니다."
+    >
       <div className="news-media">
-        <NewsTabs />
-        <NewsHeader
-          title="언론 속 이디야"
-          description="이디야의 소식을 전해드립니다."
-        />
         <NewsSearch handleSearch={handleSearch} />
-        <NewsList items={data?.articles || []} />
+        <NewsList items={articleData?.articles || []} />
         <Pagination
-          currentPage={currentPage}
-          setPage={setCurrentPage}
+          currentPage={page}
           handleChange={handleChangePage}
-          lastPage={data?.paging.lastPage}
-          blockSize={data?.paging.blockSize}
+          lastPage={articleData?.paging.lastPage}
+          blockSize={articleData?.paging.blockSize}
         />
       </div>
 

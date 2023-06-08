@@ -4,11 +4,8 @@ import NewsLayout from '@/pages/news/layout';
 
 export default function NewsNoticePage() {
   return (
-    <NewsLayout>
-      <div className="news-notice">
-        <NewsTabs />
-        <NewsHeader title="공지사항" description="공지사항 입니다." />
-      </div>
+    <NewsLayout title="공지사항" description="공지사항 입니다.">
+      <div className="news-notice"></div>
 
       <style jsx>
         {`
