@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import LogoDarkSvg from '@/assets/svgs/logo-dark.svg';
+import Image from 'next/image';
 
 const MENUS = [
   { title: '개인정보처리방침', path: '/' },
@@ -32,7 +32,12 @@ export default function Footer() {
         ))}
       </ul>
       <div className="information">
-        <LogoDarkSvg />
+        <Image
+          width={180}
+          height={18}
+          src="/svgs/logo-dark.svg"
+          alt="마이다스 로고"
+        />
         <ul>
           <li>
             서울특별시 강남구 논현로 636 이디야빌딩(서울특별시 강남구 논현동

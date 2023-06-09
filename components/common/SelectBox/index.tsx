@@ -1,8 +1,6 @@
-import theme from '@/assets/styles/theme';
-import { useState } from 'react';
-import SelectBoxArrow from '@/assets/svgs/select-box-arrow.svg';
-import SelectBoxMenuArrow from '@/assets/svgs/select-box-menu-arrow.svg';
+import theme from '@/public/styles/theme';
 import useSelectBox from '@/components/common/SelectBox/useSelectBox';
+import Image from 'next/image';
 
 export type SelectBoxItem = {
   title: string;
@@ -29,7 +27,11 @@ export default function SelectBox({
     <div className="select-box">
       <div className="box" onClick={() => setShowMenu(!showMenu)}>
         {_value?.title}
-        <SelectBoxArrow
+        <Image
+          src="/svgs/select-box-arrow.svg"
+          alt="Select Box 화샆표"
+          width={10}
+          height={8}
           style={{
             transform: showMenu ? '' : 'rotate(180deg)',
           }}
@@ -45,7 +47,11 @@ export default function SelectBox({
                 className={`${_value?.value === item.value ? 'selected' : ''}`}
               >
                 {_value?.value === item.value && (
-                  <SelectBoxMenuArrow
+                  <Image
+                    src="/svgs/select-box-menu-arrow.svg"
+                    alt="Select Box Menu 체크 이미지"
+                    width={7}
+                    height={5}
                     style={{
                       marginRight: '3px',
                       position: 'absolute',

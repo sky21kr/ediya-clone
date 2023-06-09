@@ -3,8 +3,7 @@ import { fetchDrinkList } from '@/apis/drink';
 import DrinkDetail from '@/components/Drink/Detail';
 import { MouseEvent, useRef, useState } from 'react';
 import MenuCard from '@/components/Drink/MenuCard';
-
-const PAGE_SIZE = 6;
+import { PAGE_SIZE } from '@/constants/drink';
 
 export const useDrinkList = () => {
   const [detailSn, setDetailSn] = useState<number | null>(null);
@@ -15,6 +14,10 @@ export const useDrinkList = () => {
   const { data: drinkData, fetchNextPage } = useInfiniteQuery(
     ['drink-list'],
     async ({ pageParam = 1 }) => {
+      if (pageParam === null) {
+        pageParam = 1;
+      }
+
       const { drink, paging } = await fetchDrinkList({
         start: pageParam,
         size: PAGE_SIZE,
@@ -29,7 +32,7 @@ export const useDrinkList = () => {
         const currentCount = allPosts.flat().length;
         const isLast = lastIndex.current === currentCount;
 
-        return isLast ? undefined : currentCount + 1;
+        return isLast ? 1 : currentCount + 1;
       },
     },
   );

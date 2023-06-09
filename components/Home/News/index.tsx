@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import MoreSvg from '@/assets/svgs/more.svg';
-import theme from '@/assets/styles/theme';
+import theme from '@/public/styles/theme';
 import useHomeNews from '@/components/Home/News/useHomeNews';
+import Image from 'next/image';
 
 export default function News() {
   const { news } = useHomeNews();
@@ -14,7 +14,12 @@ export default function News() {
           href="/news/media"
           style={{ display: 'flex', alignItems: 'center' }}
         >
-          <MoreSvg />
+          <Image
+            src="/svgs/more.svg"
+            alt="더보기 이미지"
+            width={16}
+            height={16}
+          />
         </Link>
       </div>
       <ol>

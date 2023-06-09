@@ -1,48 +1,30 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import theme from '@/assets/styles/theme';
-
-const TABS = [
-  {
-    title: '공지사항',
-    path: '/news/notice',
-  },
-  {
-    title: '언론 속 이디야',
-    path: '/news/media',
-  },
-  {
-    title: '홍보영상',
-    path: '/news/promotional-video',
-  },
-  {
-    title: '수상내역',
-    path: '/news/award',
-  },
-];
+import theme from '@/public/styles/theme';
+import { MEDIA_MENUS } from '@/constants/menus';
 export default function NewsTabs() {
   const router = useRouter();
 
   return (
     <nav className="tabs">
       <ul>
-        {TABS?.map((tab) => (
+        {MEDIA_MENUS?.map((menu) => (
           <li
-            key={tab.path}
-            className={`${router.pathname === tab.path ? 'selected' : ''}`}
+            key={menu.path}
+            className={`${router.pathname === menu.path ? 'selected' : ''}`}
           >
             <Link
-              href={tab.path}
+              href={menu.path}
               style={{
                 color: `${
-                  router.pathname === tab.path
+                  router.pathname === menu.path
                     ? theme.color.greyscaleWhite
                     : theme.color.primary1
                 }`,
                 fontWeight: 700,
               }}
             >
-              {tab.title}
+              {menu.title}
             </Link>
           </li>
         ))}

@@ -1,4 +1,4 @@
-import theme from '@/assets/styles/theme';
+import theme from '@/public/styles/theme';
 import Image from 'next/image';
 import { Article } from '@/apis/news';
 

@@ -1,8 +1,7 @@
-import PrevControlSvg from '@/assets/svgs/prev-control.svg';
-import NextControlSvg from '@/assets/svgs/next-control.svg';
 import Link from 'next/link';
-import theme from '@/assets/styles/theme';
+import theme from '@/public/styles/theme';
 import useHomeNotice from '@/components/Home/Notice/useHomeNotice';
+import Image from 'next/image';
 
 export default function Notice() {
   const { isLastPage, isFirstPage, handleChangePage, currentNotice } =
@@ -15,20 +14,28 @@ export default function Notice() {
           NOTICE
         </Link>
         <div className="buttons">
-          <PrevControlSvg
+          <Image
+            width={16}
+            height={16}
+            src="/svgs/prev-control.svg"
+            alt={'앞 페이지로 이동 이미지'}
             onClick={() => handleChangePage('prev')}
             style={{
               transform: 'translateX(1px)',
-              cursor: isFirstPage ? 'not-allowed' : null,
-              fill: isFirstPage ? 'grey' : null,
+              cursor: isFirstPage ? 'not-allowed' : 'pointer',
+              fill: isFirstPage ? 'grey' : '',
             }}
           />
-          <NextControlSvg
+          <Image
+            width={16}
+            height={16}
+            src="/svgs/next-control.svg"
+            alt={'뒤 페이지로 이동 이미지'}
             onClick={() => handleChangePage('next')}
             style={{
               transform: 'translateX(1px)',
-              cursor: isLastPage ? 'not-allowed' : null,
-              fill: isLastPage ? 'grey' : null,
+              cursor: isLastPage ? 'not-allowed' : 'pointer',
+              fill: isLastPage ? 'grey' : 'none',
             }}
           />
         </div>

@@ -1,7 +1,7 @@
 import { Drink } from '@/apis/drink';
 import Image from 'next/image';
 import { MouseEvent } from 'react';
-import theme from '@/assets/styles/theme';
+import theme from '@/public/styles/theme';
 
 export type MenuCardProps = {
   onClick: (e: MouseEvent) => void;

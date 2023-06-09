@@ -1,7 +1,6 @@
-import theme from '@/assets/styles/theme';
+import theme from '@/public/styles/theme';
 import usePagination from '@/components/common/Pagination/usePagination';
-import PaginationLeftSvg from '@/assets/svgs/pagination-left.svg';
-import PaginationRightSvg from '@/assets/svgs/pagination-right.svg';
+import Image from 'next/image';
 
 export type PaginationProps = {
   currentPage?: number;
@@ -16,12 +15,20 @@ export default function Pagination(props: PaginationProps) {
 
   return (
     <div className="pagination">
-      <PaginationLeftSvg
+      <Image
+        src="/svgs/pagination-left.svg"
+        alt="앞 페이지로 이동 버튼 이미지"
+        width={16}
+        height={16}
         style={{ cursor: isFirstBlock ? 'not-allowed' : 'pointer' }}
         onClick={() => handleClickArrow('prev')}
       />
       {renderPageButton()}
-      <PaginationRightSvg
+      <Image
+        src="/svgs/pagination-right.svg"
+        alt="뒤 페이지로 이동 버튼 이미지"
+        width={16}
+        height={16}
         style={{ cursor: isLastBlock ? 'not-allowed' : 'pointer' }}
         onClick={() => handleClickArrow('next')}
       />

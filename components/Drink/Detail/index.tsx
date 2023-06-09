@@ -1,9 +1,7 @@
 import ModalPortal from '@/components/common/Portal/Modal';
-import { Drink, fetchDrinkDetail } from '@/apis/drink';
-import { useRef } from 'react';
-import CloseSvg from '@/assets/svgs/close.svg';
-import { useQuery } from '@tanstack/react-query';
+import { Drink } from '@/apis/drink';
 import useDrinkDetail from '@/components/Drink/Detail/useDrinkDetail';
+import Image from 'next/image';
 
 export type DrinkDetailProps = {
   handleClose: () => void;
@@ -14,8 +12,12 @@ export default function DrinkDetail({ sn, handleClose }: DrinkDetailProps) {
   return (
     <ModalPortal handleClose={handleClose}>
       <div className="drink-detail">
-        <CloseSvg
+        <Image
           onClick={handleClose}
+          width={20}
+          height={20}
+          src="/svgs/close.svg"
+          alt="닫기 버튼"
           style={{
             position: 'absolute',
             right: 20,

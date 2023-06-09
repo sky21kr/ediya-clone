@@ -13,11 +13,12 @@ const nextConfig = {
     });
     return config;
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
-        source: '/home',
-        destination: '/',
+        source: '/news',
+        destination: '/news/notice',
+        permanent: true,
       },
     ];
   },

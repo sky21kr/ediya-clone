@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import News from '@/components/Home/News';
 import Notice from '@/components/Home/Notice';
-import theme from '@/assets/styles/theme';
+import theme from '@/public/styles/theme';
 import HomeVideo from '@/components/Home/Video';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { fetchIntro, fetchNews, fetchNotices } from '@/apis/news';

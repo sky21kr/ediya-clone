@@ -1,7 +1,6 @@
-import theme from '@/assets/styles/theme';
-import SearchSvg from '@/assets/svgs/search.svg';
-import { useEffect, useState } from 'react';
+import theme from '@/public/styles/theme';
 import useCustomInput from '@/components/common/CustomInput/useCustominput';
+import Image from 'next/image';
 
 export type CustomInputProps = {
   value?: string;
@@ -20,7 +19,11 @@ export default function CustomInput(props: CustomInputProps) {
         onChange={(e) => _handleChange(e)}
         onKeyDown={handleEnter}
       />
-      <SearchSvg
+      <Image
+        src="/svgs/search.svg"
+        alt="검색 아이콘 이미지"
+        width={16}
+        height={16}
         onClick={() => handleSubmit && handleSubmit(_value)}
         style={{
           position: 'absolute',

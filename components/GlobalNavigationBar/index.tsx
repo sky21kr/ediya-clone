@@ -1,19 +1,25 @@
-import LogoSvg from '@/assets/svgs/logo.svg.svg';
 import Link from 'next/link';
-import theme from '@/assets/styles/theme';
+import theme from '@/public/styles/theme';
 import useGlobalNavigationBar from '@/components/GlobalNavigationBar/useGlobalNavigationBar';
+import { GLOBAL_NAVIGATION_BAR_MENUS } from '@/constants/menus';
+import Image from 'next/image';
 
 export default function GlobalNavigationBar() {
-  const { MENUS, isSelected } = useGlobalNavigationBar();
+  const { isSelected } = useGlobalNavigationBar();
 
   return (
     <nav className="global-navigation-bar">
       <div className="container">
         <Link href="/">
-          <LogoSvg />
+          <Image
+            src="/svgs/logo.svg"
+            alt="이디야 로고 이미지"
+            width={140}
+            height={14}
+          />
         </Link>
         <ol>
-          {MENUS.map((menu) => (
+          {GLOBAL_NAVIGATION_BAR_MENUS.map((menu) => (
             <li key={menu.title}>
               <Link
                 style={{
