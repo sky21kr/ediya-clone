@@ -39,6 +39,7 @@ export const useNewsMedia = () => {
   };
 
   return {
+    currentPage,
     articleData,
     handleSearch,
     handleChangePage,

@@ -5,7 +5,8 @@ import NewsSearch from '@/components/News/Search';
 import useNewsMedia from '@/pages/news/media/useNewsMedia';
 
 export default function NewsMediaPage() {
-  const { articleData, handleSearch, handleChangePage } = useNewsMedia();
+  const { currentPage, articleData, handleSearch, handleChangePage } =
+    useNewsMedia();
 
   return (
     <NewsLayout
@@ -16,6 +17,7 @@ export default function NewsMediaPage() {
         <NewsSearch handleSearch={handleSearch} />
         <NewsList items={articleData?.articles || []} />
         <Pagination
+          currentPage={currentPage}
           handleChange={handleChangePage}
           lastPage={articleData?.paging.lastPage}
           blockSize={articleData?.paging.blockSize}
