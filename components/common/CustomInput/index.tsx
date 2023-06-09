@@ -1,40 +1,27 @@
 import theme from '@/assets/styles/theme';
 import SearchSvg from '@/assets/svgs/search.svg';
+import { useEffect, useState } from 'react';
+import useCustomInput from '@/components/common/CustomInput/useCustominput';
 
 export type CustomInputProps = {
-  value: string;
-  setValue: (value: string) => void;
-  handleSubmit: (keyword: string) => void;
+  value?: string;
+  handleSubmit?: (keyword: string) => void;
+  handleChange?: (keyword: string) => void;
 };
 
-export default function CustomInput({
-  value,
-  setValue,
-  handleSubmit,
-}: CustomInputProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  const _handleSubmit = () => {
-    handleSubmit(value);
-  };
-
-  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSubmit(value);
-    }
-  };
+export default function CustomInput(props: CustomInputProps) {
+  const { handleSubmit } = props;
+  const { _value, _handleChange, handleEnter } = useCustomInput(props);
 
   return (
     <div className="custom-input">
       <input
-        value={value}
-        onChange={(e) => handleChange(e)}
+        value={_value}
+        onChange={(e) => _handleChange(e)}
         onKeyDown={handleEnter}
       />
       <SearchSvg
-        onClick={_handleSubmit}
+        onClick={() => handleSubmit && handleSubmit(_value)}
         style={{
           position: 'absolute',
           right: '0',

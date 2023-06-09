@@ -16,7 +16,6 @@ export default function NewsMediaPage() {
         <NewsSearch handleSearch={handleSearch} />
         <NewsList items={articleData?.articles || []} />
         <Pagination
-          currentPage={page}
           handleChange={handleChangePage}
           lastPage={articleData?.paging.lastPage}
           blockSize={articleData?.paging.blockSize}

@@ -2,7 +2,7 @@ import theme from '@/assets/styles/theme';
 import { useState } from 'react';
 import SelectBoxArrow from '@/assets/svgs/select-box-arrow.svg';
 import SelectBoxMenuArrow from '@/assets/svgs/select-box-menu-arrow.svg';
-import { rotate } from 'next/dist/server/lib/squoosh/impl';
+import useSelectBox from '@/components/common/SelectBox/useSelectBox';
 
 export type SelectBoxItem = {
   title: string;
@@ -11,22 +11,24 @@ export type SelectBoxItem = {
 
 export type SelectBoxProps = {
   items: SelectBoxItem[];
-  setValue: (item: SelectBoxItem) => void;
-  value: SelectBoxItem;
+  value?: SelectBoxItem;
+  handleSelect?: (value: SelectBoxItem) => void;
 };
 
-export default function SelectBox({ value, setValue, items }: SelectBoxProps) {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const handleSelect = (item: SelectBoxItem) => {
-    setValue(item);
-    setShowMenu(false);
-  };
+export default function SelectBox({
+  value,
+  items,
+  handleSelect,
+}: SelectBoxProps) {
+  const { _value, showMenu, setShowMenu, _handleSelect } = useSelectBox({
+    value,
+    handleSelect,
+  });
 
   return (
     <div className="select-box">
       <div className="box" onClick={() => setShowMenu(!showMenu)}>
-        {value.title}
+        {_value?.title}
         <SelectBoxArrow
           style={{
             transform: showMenu ? '' : 'rotate(180deg)',
@@ -39,10 +41,10 @@ export default function SelectBox({ value, setValue, items }: SelectBoxProps) {
             {items?.map((item) => (
               <li
                 key={item.value}
-                onClick={() => handleSelect(item)}
-                className={`${value.value === item.value ? 'selected' : ''}`}
+                onClick={() => _handleSelect(item)}
+                className={`${_value?.value === item.value ? 'selected' : ''}`}
               >
-                {value.value === item.value && (
+                {_value?.value === item.value && (
                   <SelectBoxMenuArrow
                     style={{
                       marginRight: '3px',

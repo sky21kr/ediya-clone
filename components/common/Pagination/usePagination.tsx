@@ -1,6 +1,4 @@
 import { PaginationProps } from '@/components/common/Pagination/index';
-import PaginationLeftSvg from '@/assets/svgs/pagination-left.svg';
-import PaginationRightSvg from '@/assets/svgs/pagination-right.svg';
 import { useEffect, useState } from 'react';
 
 const usePagination = ({
@@ -40,43 +38,32 @@ const usePagination = ({
   };
 
   const renderPageButton = () => {
-    const currentBlockSize = Math.min(
-      lastPage - currentBlock * blockSize,
-      blockSize,
-    );
+    const currentBlockSize =
+      Math.min(lastPage - currentBlock * blockSize, blockSize) || 1;
 
     return (
-      <>
-        <PaginationLeftSvg
-          style={{ cursor: isFirstBlock ? 'not-allowed' : 'pointer' }}
-          onClick={() => handleClickArrow('prev')}
-        />
-        <ol>
-          {Array.from({ length: currentBlockSize }, (_, index) => {
-            const targetPage = 1 + index + blockSize * currentBlock;
+      <ol>
+        {Array.from({ length: currentBlockSize }, (_, index) => {
+          const targetPage = 1 + index + blockSize * currentBlock;
 
-            console.log('targetPage', page);
-
-            return (
-              <li
-                className={targetPage === page ? 'selected' : ''}
-                key={index}
-                onClick={() => _handleChange(targetPage)}
-              >
-                {targetPage}
-              </li>
-            );
-          })}
-        </ol>
-        <PaginationRightSvg
-          style={{ cursor: isLastBlock ? 'not-allowed' : 'pointer' }}
-          onClick={() => handleClickArrow('next')}
-        />
-      </>
+          return (
+            <li
+              className={targetPage === page ? 'selected' : ''}
+              key={index}
+              onClick={() => _handleChange(targetPage)}
+            >
+              {targetPage}
+            </li>
+          );
+        })}
+      </ol>
     );
   };
 
   return {
+    handleClickArrow,
+    isFirstBlock,
+    isLastBlock,
     renderPageButton,
   };
 };

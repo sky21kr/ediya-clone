@@ -3,7 +3,6 @@ import useDrinkList from '@/components/Drink/List/useDrinkList';
 
 export default function DrinkList() {
   const { fetchNextPage, renderDetail, renderList } = useDrinkList();
-
   const { renderObserver } = useInfinityScroll({ fetchNextPage });
 
   return (

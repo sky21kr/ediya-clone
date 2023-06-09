@@ -1,12 +1,14 @@
 import FloatingArrow from '@/assets/svgs/floating-arrow.svg';
+import useFloatingButton from '@/components/common/FloatingButton/useFloatingButton';
 
 export default function FloatingButton() {
-  const handleScrollUp = () => {
-    window.scrollTo({ top: 0 });
-  };
+  const { showButton } = useFloatingButton();
 
-  return (
-    <button className="floating-button" onClick={handleScrollUp}>
+  return showButton ? (
+    <button
+      className="floating-button"
+      onClick={() => window.scrollTo({ top: 0 })}
+    >
       <FloatingArrow />
       <style jsx>{`
         .floating-button {
@@ -23,5 +25,5 @@ export default function FloatingButton() {
         }
       `}</style>
     </button>
-  );
+  ) : null;
 }

@@ -1,41 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchNotices } from '@/apis/news';
-
 import PrevControlSvg from '@/assets/svgs/prev-control.svg';
 import NextControlSvg from '@/assets/svgs/next-control.svg';
-import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import theme from '@/assets/styles/theme';
+import useHomeNotice from '@/components/Home/Notice/useHomeNotice';
 
 export default function Notice() {
-  const { data: notices } = useQuery(['home-notices'], fetchNotices);
-
-  const [page, setPage] = useState(1);
-
-  const currentNotice = useMemo(() => {
-    return notices ? notices[page] : null;
-  }, [page, notices]);
-
-  const isFirstPage = useMemo(() => {
-    return page === 1;
-  }, [page, notices]);
-
-  const isLastPage = useMemo(() => {
-    if (notices) return page === notices.length - 1;
-  }, [page, notices]);
-
-  const handleChangePage = (type: 'prev' | 'next') => {
-    if (notices) {
-      switch (type) {
-        case 'prev':
-          if (!isFirstPage) setPage(page - 1);
-          break;
-        case 'next':
-          if (!isLastPage) setPage(page + 1);
-          break;
-      }
-    }
-  };
+  const { isLastPage, isFirstPage, handleChangePage, currentNotice } =
+    useHomeNotice();
 
   return (
     <article className="notice">
@@ -44,7 +15,6 @@ export default function Notice() {
           NOTICE
         </Link>
         <div className="buttons">
-          {/* TODO: svg 겹치게  하기*/}
           <PrevControlSvg
             onClick={() => handleChangePage('prev')}
             style={{

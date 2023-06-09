@@ -1,26 +1,10 @@
 import LogoSvg from '@/assets/svgs/logo.svg.svg';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import theme from '@/assets/styles/theme';
-
-const MENUS = [
-  { title: '이디야 디자인', path: '/design' },
-  { title: '로그인', path: '/login' },
-  { title: '회원가입', path: '/signup' },
-  { title: '이디야 음료', path: '/drink' },
-  { title: '이디야 뉴스', path: '/news/notice', activePath: ['/news'] },
-  { title: '매장찾기', path: '/find' },
-];
+import useGlobalNavigationBar from '@/components/GlobalNavigationBar/useGlobalNavigationBar';
 
 export default function GlobalNavigationBar() {
-  const router = useRouter();
-
-  const isSelected = (menu: { path: string; activePath?: string[] }) => {
-    return (
-      router.pathname === menu.path ||
-      menu.activePath?.find((act) => router.pathname.includes(act))
-    );
-  };
+  const { MENUS, isSelected } = useGlobalNavigationBar();
 
   return (
     <nav className="global-navigation-bar">

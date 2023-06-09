@@ -1,5 +1,7 @@
 import theme from '@/assets/styles/theme';
 import usePagination from '@/components/common/Pagination/usePagination';
+import PaginationLeftSvg from '@/assets/svgs/pagination-left.svg';
+import PaginationRightSvg from '@/assets/svgs/pagination-right.svg';
 
 export type PaginationProps = {
   currentPage?: number;
@@ -9,11 +11,20 @@ export type PaginationProps = {
 };
 
 export default function Pagination(props: PaginationProps) {
-  const { renderPageButton } = usePagination(props);
+  const { renderPageButton, isFirstBlock, isLastBlock, handleClickArrow } =
+    usePagination(props);
 
   return (
     <div className="pagination">
+      <PaginationLeftSvg
+        style={{ cursor: isFirstBlock ? 'not-allowed' : 'pointer' }}
+        onClick={() => handleClickArrow('prev')}
+      />
       {renderPageButton()}
+      <PaginationRightSvg
+        style={{ cursor: isLastBlock ? 'not-allowed' : 'pointer' }}
+        onClick={() => handleClickArrow('next')}
+      />
 
       <style jsx global>
         {`

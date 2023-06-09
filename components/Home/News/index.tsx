@@ -1,22 +1,10 @@
 import Link from 'next/link';
 import MoreSvg from '@/assets/svgs/more.svg';
-import { useQuery } from '@tanstack/react-query';
-import { fetchNews } from '@/apis/news';
-import { useMemo } from 'react';
 import theme from '@/assets/styles/theme';
+import useHomeNews from '@/components/Home/News/useHomeNews';
 
 export default function News() {
-  const { data: newsData } = useQuery(['home-news'], () =>
-    fetchNews({ currentPage: 1 }),
-  );
-
-  const news = useMemo(() => {
-    if (!newsData) return [];
-
-    const { articles } = newsData;
-
-    return articles.slice(0, 2);
-  }, [newsData]);
+  const { news } = useHomeNews();
 
   return (
     <article>

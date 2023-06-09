@@ -1,18 +1,17 @@
 import Link from 'next/link';
 import LogoDarkSvg from '@/assets/svgs/logo-dark.svg';
 
+const MENUS = [
+  { title: '개인정보처리방침', path: '/' },
+  { title: '멤버스 이용약관', path: '/' },
+  { title: '가맹 안내', path: '/' },
+  { title: '대량쿠폰구매', path: '/' },
+  { title: '채용안내', path: '/' },
+  { title: '고객의 소리', path: '/' },
+  { title: '사이트맵', path: '/' },
+  { title: '점주의 방', path: '/' },
+];
 export default function Footer() {
-  const MENUS = [
-    { title: '개인정보처리방침', path: '/' },
-    { title: '멤버스 이용약관', path: '/' },
-    { title: '가맹 안내', path: '/' },
-    { title: '대량쿠폰구매', path: '/' },
-    { title: '채용안내', path: '/' },
-    { title: '고객의 소리', path: '/' },
-    { title: '사이트맵', path: '/' },
-    { title: '점주의 방', path: '/' },
-  ];
-
   return (
     <footer>
       <ul>

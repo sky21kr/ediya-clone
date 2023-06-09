@@ -1,23 +1,20 @@
 import { ReactNode, useEffect, useRef } from 'react';
 import ReactDom from 'react-dom';
 import useScrollDisable from '@/hooks/useScrollDisable';
+import useModalPortal from '@/components/common/Portal/Modal/useModalPortal';
 
-interface Props {
+export type ModalPortalProps = {
   children: ReactNode;
   handleClose?: () => void;
-}
+};
 
-export default function ModalPortal({ children, handleClose }: Props) {
-  const el = document.getElementById('modal-root') as HTMLElement;
-  const backgroundRef = useRef(null);
-
-  const handleClickOutside = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-  ) => {
-    if (event.target === backgroundRef.current && handleClose) {
-      handleClose();
-    }
-  };
+export default function ModalPortal({
+  children,
+  handleClose,
+}: ModalPortalProps) {
+  const { rootElement, backgroundRef, handleClickOutside } = useModalPortal({
+    handleClose,
+  });
 
   useScrollDisable();
 
@@ -42,6 +39,6 @@ export default function ModalPortal({ children, handleClose }: Props) {
         }
       `}</style>
     </div>,
-    el,
+    rootElement,
   );
 }

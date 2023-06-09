@@ -11,7 +11,7 @@ export const useInfinityScroll = ({
 
   useEffect(() => {
     const observer = new IntersectionObserver(([target]) => {
-      if (!(target as any).isVisible) {
+      if (target.isIntersecting) {
         fetchNextPage();
       }
     }, {});

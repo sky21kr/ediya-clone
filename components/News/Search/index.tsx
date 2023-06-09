@@ -3,6 +3,7 @@ import CustomInput from '@/components/common/CustomInput';
 import { useState } from 'react';
 import Margin from '@/components/common/Margin';
 import { NewsRequest } from '@/apis/news';
+import useNewsSearch from '@/components/News/Search/useNewsSearch';
 
 const ITEMS: SelectBoxItem[] = [
   { title: '제목', value: 'title' },
@@ -16,22 +17,17 @@ export type NewsSearchProps = {
   ) => void;
 };
 export default function NewsSearch({ handleSearch }: NewsSearchProps) {
-  const [filter, setFilter] = useState(ITEMS[0]);
-  const [keyword, setKeyword] = useState('');
-
-  const handleSubmit = (_keyword: string) => {
-    handleSearch(_keyword, filter.value as NewsRequest['keywordType']);
-  };
+  const { filter, setFilter, handleSubmit } = useNewsSearch({ handleSearch });
 
   return (
     <div className="news-search">
-      <SelectBox items={ITEMS} value={filter} setValue={setFilter} />
-      <Margin right={12} />
-      <CustomInput
-        value={keyword}
-        setValue={setKeyword}
-        handleSubmit={handleSubmit}
+      <SelectBox
+        items={ITEMS}
+        value={filter}
+        handleSelect={(filter) => setFilter(filter)}
       />
+      <Margin right={12} />
+      <CustomInput handleSubmit={handleSubmit} />
 
       <style jsx>
         {`

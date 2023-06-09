@@ -4,6 +4,22 @@ import News from '@/components/Home/News';
 import Notice from '@/components/Home/Notice';
 import theme from '@/assets/styles/theme';
 import HomeVideo from '@/components/Home/Video';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { fetchIntro, fetchNews, fetchNotices } from '@/apis/news';
+
+export const getServerSideProps = async () => {
+  const queryClient = new QueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery(['intro'], fetchIntro),
+    queryClient.prefetchQuery(['home-notices'], fetchNotices),
+    queryClient.prefetchQuery(['home-news'], () =>
+      fetchNews({ currentPage: 1 }),
+    ),
+  ]);
+
+  return { props: { dehydratedState: dehydrate(queryClient) } };
+};
 
 export default function HomePage() {
   return (
@@ -39,6 +55,7 @@ export default function HomePage() {
           }}
         >
           <Image
+            priority={true}
             width={306}
             height={401}
             src={'/images/cheese-choco.png'}
@@ -47,6 +64,7 @@ export default function HomePage() {
         </Link>
         <Link href="/drink" style={{ transform: 'translate(150px, -130px)' }}>
           <Image
+            priority={true}
             width={457}
             height={300}
             src={'/images/choco-rice.png'}

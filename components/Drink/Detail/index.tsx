@@ -3,20 +3,17 @@ import { Drink, fetchDrinkDetail } from '@/apis/drink';
 import { useRef } from 'react';
 import CloseSvg from '@/assets/svgs/close.svg';
 import { useQuery } from '@tanstack/react-query';
+import useDrinkDetail from '@/components/Drink/Detail/useDrinkDetail';
 
 export type DrinkDetailProps = {
   handleClose: () => void;
 } & Pick<Drink, 'sn'>;
 export default function DrinkDetail({ sn, handleClose }: DrinkDetailProps) {
-  const drinkDetailRef = useRef<HTMLDivElement>(null);
-
-  const { data: drinkDetail } = useQuery(['drink-detail', sn], () =>
-    fetchDrinkDetail({ sn }),
-  );
+  const { drinkDetail } = useDrinkDetail({ sn });
 
   return (
     <ModalPortal handleClose={handleClose}>
-      <div className="drink-detail" ref={drinkDetailRef}>
+      <div className="drink-detail">
         <CloseSvg
           onClick={handleClose}
           style={{
