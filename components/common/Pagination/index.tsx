@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export type PaginationProps = {
   currentPage?: number;
-  lastPage?: number;
+  lastPage: number;
   blockSize?: number;
   handleChange?: (page: number) => void;
 };

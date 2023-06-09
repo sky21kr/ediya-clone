@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 const usePagination = ({
   handleChange,
   currentPage = 1,
-  lastPage = 1,
+  lastPage,
   blockSize = 10,
 }: PaginationProps) => {
   const [page, setPage] = useState(currentPage);
@@ -13,7 +13,7 @@ const usePagination = ({
   const lastBlock = Math.floor((lastPage - 1) / blockSize);
 
   const isFirstBlock = currentBlock === 0;
-  const isLastBlock = currentBlock === lastBlock;
+  const isLastBlock = currentBlock === lastBlock || lastPage === 0;
 
   const _handleChange = (nextPage: number) => {
     if (handleChange) handleChange(nextPage);
