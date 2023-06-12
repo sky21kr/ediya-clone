@@ -3,23 +3,15 @@ import { fetchNews, NewsRequest } from '@/apis/news';
 import { useState } from 'react';
 
 export const useNewsMedia = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [keyword, setKeyword] = useState('');
-  const [keywordType, setKeywordType] = useState<
-    'title' | 'content' | undefined
-  >('title');
+  const [searchParams, setSearchParams] = useState<NewsRequest>({
+    keyword: '',
+    keywordType: 'title',
+    currentPage: 1,
+  });
 
   const { data: articleData } = useQuery(
-    ['articles', keyword, keywordType, currentPage],
-    async () => {
-      const nextSearchParams = {
-        keyword,
-        keywordType,
-        currentPage,
-      };
-
-      return await fetchNews(nextSearchParams);
-    },
+    ['articles', searchParams],
+    () => fetchNews(searchParams),
     {
       keepPreviousData: true,
     },
@@ -29,17 +21,22 @@ export const useNewsMedia = () => {
     keyword: string,
     keywordType: NewsRequest['keywordType'],
   ) => {
-    setCurrentPage(1);
-    setKeyword(keyword);
-    setKeywordType(keywordType);
+    setSearchParams({
+      currentPage: 1,
+      keyword,
+      keywordType,
+    });
   };
 
   const handleChangePage = (nextPage: number) => {
-    setCurrentPage(nextPage);
+    setSearchParams({
+      ...searchParams,
+      currentPage: nextPage,
+    });
   };
 
   return {
-    currentPage,
+    currentPage: searchParams.currentPage,
     articleData,
     handleSearch,
     handleChangePage,

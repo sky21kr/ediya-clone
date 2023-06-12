@@ -64,6 +64,7 @@ export default function Footer() {
 
       <style jsx>{`
         footer {
+          margin-top: auto;
           background: #0f0f0f;
 
           > ul {

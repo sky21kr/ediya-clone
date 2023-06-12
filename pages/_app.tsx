@@ -40,7 +40,7 @@ const queryClient = new QueryClient();
 
 export default function BaseLayout({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <div className="base-layout">
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <GlobalNavigationBar />
@@ -53,6 +53,12 @@ export default function BaseLayout({ Component, pageProps }: AppProps) {
       <style jsx global>{`
         :root {
           --font-sqopa-han-sans-neo: ${spoqaHanSansNeo.style.fontFamily};
+        }
+
+        .base-layout {
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
         }
       `}</style>
     </div>

@@ -1,7 +1,5 @@
 import SelectBox, { SelectBoxItem } from '@/components/common/SelectBox';
 import CustomInput from '@/components/common/CustomInput';
-import { useState } from 'react';
-import Margin from '@/components/common/Margin';
 import { NewsRequest } from '@/apis/news';
 import useNewsSearch from '@/components/News/Search/useNewsSearch';
 
@@ -26,12 +24,14 @@ export default function NewsSearch({ handleSearch }: NewsSearchProps) {
         value={filter}
         handleSelect={(filter) => setFilter(filter)}
       />
-      <Margin right={12} />
       <CustomInput handleSubmit={handleSubmit} />
 
       <style jsx>
         {`
           .news-search {
+            display: flex;
+            gap: 12px;
+            align-items: center;
             margin-top: 24px;
             align-self: end;
           }

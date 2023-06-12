@@ -14,8 +14,6 @@ export default function NewsHeader({ title, description }: NewsHeaderProps) {
       <style jsx>
         {`
           .news-header {
-            margin-top: 52px;
-
             > h2 {
               font-weight: 700;
               font-size: 20px;

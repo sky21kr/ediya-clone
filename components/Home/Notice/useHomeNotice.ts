@@ -8,7 +8,7 @@ export const useHomeNotice = () => {
 
   const currentNotice = notices?.[page];
   const isFirstPage = page === 1;
-  const isLastPage = notices ? page === notices.length - 1 : false;
+  const isLastPage = notices ? page === notices.length - 1 : true;
 
   const handleChangePage = (type: 'prev' | 'next') => {
     if (notices) {

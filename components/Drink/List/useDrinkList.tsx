@@ -32,7 +32,7 @@ export const useDrinkList = () => {
         const currentCount = allPosts.flat().length;
         const isLast = lastIndex.current === currentCount;
 
-        return isLast ? 1 : currentCount + 1;
+        return isLast ? undefined : currentCount + 1;
       },
     },
   );

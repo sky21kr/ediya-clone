@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import theme from '@/public/styles/theme';
 import useHomeNotice from '@/components/Home/Notice/useHomeNotice';
-import Image from 'next/image';
+import PrevControlSvg from '@/public/svgs/prev-control.svg';
+import NextControlSvg from '@/public/svgs/next-control.svg';
 
 export default function Notice() {
   const { isLastPage, isFirstPage, handleChangePage, currentNotice } =
@@ -14,23 +15,15 @@ export default function Notice() {
           NOTICE
         </Link>
         <div className="buttons">
-          <Image
-            width={16}
-            height={16}
-            src="/svgs/prev-control.svg"
-            alt={'앞 페이지로 이동 이미지'}
+          <PrevControlSvg
             onClick={() => handleChangePage('prev')}
             style={{
               transform: 'translateX(1px)',
               cursor: isFirstPage ? 'not-allowed' : 'pointer',
-              fill: isFirstPage ? 'grey' : '',
+              fill: isFirstPage ? 'grey' : 'none',
             }}
           />
-          <Image
-            width={16}
-            height={16}
-            src="/svgs/next-control.svg"
-            alt={'뒤 페이지로 이동 이미지'}
+          <NextControlSvg
             onClick={() => handleChangePage('next')}
             style={{
               transform: 'translateX(1px)',
